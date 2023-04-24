@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/Header"
+import FeedbackList from "./components/FeedbackList"
+import Stats from "./components/Stats"
+import FeedbackForm from "./components/feedbackform/FeedbackForm"
+import AbutIconCompnent from "./components/AbutIconCompnent"
+import FeedbackContext, { FeedProvider } from "./data/ContextProvider"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <FeedProvider>
+      <Header />
+      <div className="container">
+        <FeedbackForm />
+        <Stats />
+        <FeedbackList />
+      </div>
+      <AbutIconCompnent />
+    </FeedProvider>
+  )
 }
-
-export default App;
+export default App

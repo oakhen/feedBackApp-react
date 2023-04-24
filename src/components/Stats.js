@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import { useContext } from "react"
-import FeedbackContext, { FeedProvider } from "../data/ContextProvider"
+import FeedbackContext from "../data/ContextProvider"
 
 function Stats() {
   const { feedback } = useContext(FeedbackContext)

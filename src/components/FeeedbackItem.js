@@ -3,8 +3,7 @@ import Card from "./styledComponets/Card"
 import FeedbackContext from "../data/ContextProvider"
 import { useContext } from "react"
 function FeeedbackItem({ item }) {
-  const { feedback, setfeedback, feedbackEdit, setFeedbackEdit } =
-    useContext(FeedbackContext)
+  const { feedback, setfeedback, setFeedbackEdit } = useContext(FeedbackContext)
   const deleteFeed = (id) => {
     setfeedback(feedback.filter((item) => item.id !== id))
   }

@@ -3,7 +3,7 @@ import FeedbackList from "./components/FeedbackList"
 import Stats from "./components/Stats"
 import FeedbackForm from "./components/feedbackform/FeedbackForm"
 import AbutIconCompnent from "./components/AbutIconCompnent"
-import FeedbackContext, { FeedProvider } from "./data/ContextProvider"
+import { FeedProvider } from "./data/ContextProvider"
 
 function App() {
   return (

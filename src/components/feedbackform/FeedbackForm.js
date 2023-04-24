@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import Card from "../styledComponets/Card"
 import Button from "../styledComponets/Button"
 import RatingSelect from "../RatingSelect"
@@ -6,12 +6,20 @@ import FeedbackContext from "../../data/ContextProvider"
 import { v4 as uid } from "uuid"
 
 function FeedbackForm() {
+  const { feedback, setfeedback, feedbackEdit, setFeedbackEdit } =
+    useContext(FeedbackContext)
   const [text, setText] = useState("")
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [message, setMessage] = useState("")
   const [rating, setRating] = useState(0)
 
-  const { feedback, setfeedback } = useContext(FeedbackContext)
+  useEffect(() => {
+    if (feedbackEdit.edit) {
+      setText(feedbackEdit.item.text)
+      setBtnDisabled(false)
+      setRating(feedbackEdit.item.rating)
+    }
+  }, [feedbackEdit])
 
   return (
     <Card>
@@ -20,6 +28,18 @@ function FeedbackForm() {
           e.preventDefault()
           if (text.length === 0 || rating === 0) {
             setMessage("must provide a rating")
+          } else if (feedbackEdit.edit) {
+            setfeedback(
+              feedback.map((item) =>
+                item.id === feedbackEdit.item.id
+                  ? { ...item, text, rating }
+                  : item,
+              ),
+            )
+            setText("")
+            setRating(0)
+            setBtnDisabled(true)
+            setFeedbackEdit({ edit: false })
           } else {
             setfeedback(() => [{ text, rating, id: uid() }, ...feedback])
             setText("")
@@ -48,7 +68,7 @@ function FeedbackForm() {
             }}
             type="text"
             placeholder="write a rewiew"
-            value={"let say some text goes here"}
+            value={text}
           />
           <Button type="submit" isDisabled={btnDisabled}>
             Send

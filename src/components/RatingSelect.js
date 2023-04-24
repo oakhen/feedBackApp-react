@@ -1,14 +1,22 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import FeedbackContext from "../data/ContextProvider"
 
 function RatingSelect({ ratingValue }) {
+  const { feedbackEdit } = useContext(FeedbackContext)
   const [checked, setChecked] = useState(null)
-
-  /* this local sate is only to assing the checked value onChange event */
 
   const handleChange = (e) => {
     setChecked(+e.target.value)
     ratingValue(+e.target.value)
   }
+
+  useEffect(() => {
+    if (feedbackEdit.edit) {
+      setChecked(feedbackEdit.item.rating)
+    } else {
+      setChecked(null)
+    }
+  }, [feedbackEdit])
   return (
     <ul className="rating">
       <li>
